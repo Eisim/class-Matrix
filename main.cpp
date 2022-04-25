@@ -7,15 +7,9 @@ int main() {
 	std::cin >> size[0] >> size[1];
 	
 	Matrix user(size[0],size[1]);
-	double data;
 
 	std::cout << "write the elements as you want separated by a space:"<<std::endl;
-	for (int i = 0; i < size[0]; i++) {
-		for (int j = 0; j < size[1]; j++) {
-			std::cin >> data;
-			user[i][j] = data;
-		}
-	}
+	std::cin >> user;
 	std::cout << user;
 
 	Matrix m1(5, 2);

@@ -149,3 +149,13 @@ std::ostream& operator<<(std::ostream& out, const Matrix& m) {
 	out <<"\n";
 	return out;
 }
+
+
+std::istream& operator>>(std::istream& in, Matrix& m) {
+	for (int i = 0; i < m.size[0]; i++) {
+		for (int j = 0; j < m.size[1]; j++) {
+			std::cin >> m[i][j];
+		}
+	}
+	return in;
+}
