@@ -15,9 +15,18 @@ public:
 	Matrix& operator+=(const Matrix& m);
 	Matrix& operator-=(const Matrix& m);
 	Matrix operator+(const Matrix& m) const;
+	Matrix operator-(const Matrix& m) const;
+	Matrix operator-() const;
+	//num *
+	Matrix& operator*=(const int& num);
+	Matrix operator*(const int& num) const;
+	//matr *
+	Matrix& operator*=(const Matrix& m);
+	Matrix operator*(const Matrix& m) const;
+
 	Vector& operator[](int i);
 	Vector operator[](int i) const;
-
+	void randomFill();
 
 	friend std::ostream& operator<<(std::ostream& out, const Matrix& m);
 

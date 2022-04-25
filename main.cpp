@@ -2,7 +2,21 @@
 #include"Matrix.h"
 
 int main() {
+	int size[2];
+	std::cout << "size(separated by a space):"<<std::endl;
+	std::cin >> size[0] >> size[1];
+	
+	Matrix user(size[0],size[1]);
+	double data;
 
+	std::cout << "write the elements as you want separated by a space:"<<std::endl;
+	for (int i = 0; i < size[0]; i++) {
+		for (int j = 0; j < size[1]; j++) {
+			std::cin >> data;
+			user[i][j] = data;
+		}
+	}
+	std::cout << user;
 
 	Matrix m1(5, 2);
 	m1[2][0] = 1;
@@ -13,10 +27,27 @@ int main() {
 	m2[2][0] = 9;
 	m2[4][0] = 11;
 	m2[2][1] = 7;
+	
 	Matrix c(5,2);
+	Matrix u(2, 4);
+	Matrix opermult;
+	u.randomFill();
 	std::cout << "m1=\n" << m1 << "m2=\n" << m2;
 	c=m1+m2;
-	std::cout << "m1+m2\n" << c;
+	std::cout << "c=m1+m2\n" << c;
+	c = m1 - m2;
+	std::cout << "c=m1-m2\n" << c;
+	m2 *= 2;
+	std::cout << "m2*=2\n" << m2;
+	m1 += m1;
+	std::cout << "m1+=m1\n" << m1;
+	c = m1 * 2;
+	std::cout << "c=m1*2\n" << c;
 
+	std::cout << "m1=\n" << m1 << "u=\n" << u;
+	m1 *= u;
+	std::cout << "m1*=m2" << m1;
+	opermult = m1 * u;
+	std::cout << "m1*m2\n" << opermult;
 	return 0;
 }

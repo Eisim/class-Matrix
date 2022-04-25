@@ -60,6 +60,8 @@ void Vector::resize(int newSize) {
 	delete[] data;
 	this->data = new double[newSize];
 	this->n = newSize;
+	for (int i = 0; i < n; i++)
+		data[i] = 0;
 
 }
 

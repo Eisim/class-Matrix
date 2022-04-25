@@ -21,7 +21,6 @@ Matrix::Matrix(const int size1, const int size2) {
 Matrix::Matrix(const Matrix& m) {
 	size[0] = m.size[0];
 	size[1] = m.size[1];
-	delete[] data;
 	data = new Vector[size[0]];
 	for (int i = 0; i < size[0]; i++)
 		data[i] = m.data[i];
@@ -51,6 +50,7 @@ Matrix& Matrix::operator+=(const Matrix& m) {
 	return *this;
 }
 
+
 Matrix& Matrix::operator-=(const Matrix& m) {
 	if (size[0] == m.size[0]) {
 		for (int i = 0; i < size[0]; i++)
@@ -59,16 +59,71 @@ Matrix& Matrix::operator-=(const Matrix& m) {
 	else { std::cout << "ERROR -=\n"; return *this; }
 	return *this;
 }
+
+Matrix& Matrix::operator*=(const int& num) {
+		for (int i = 0; i < size[0]; i++)
+			data[i] *=num;
+	return *this;
+}
+
+Matrix Matrix::operator*(const int& num) const {
+	Matrix result(size[0], size[1]);
+	for (int i = 0; i < size[0]; i++) {
+		result[i] = data[i] *num;
+	}
+	return result;
+}
+
+Matrix& Matrix::operator*=(const Matrix& m) {
+	if (size[1] != m.size[0]) return *this;
+	Matrix result(size[0], m.size[1]);
+	for (int i = 0; i < result.size[0]; i++) {
+		for (int k = 0; k < size[1]; k++){
+			for (int j = 0; j < result.size[1]; j++)
+				result[i][j] += (data[i][k] * m[k][j]);
+		}
+	}
+	*this = result;
+	return *this;
+}
+Matrix Matrix :: operator*(const Matrix& m) const {
+	if (size[1] != m.size[0]) return *this;
+	Matrix result(size[0], m.size[1]);
+	result *= m;
+	result *= *this;
+	
+	return result;
+
+}
 Matrix Matrix::operator+(const Matrix& m) const {
-	if (m.size[0] != size[0] || m.size[1]!=m.size[1]) {
+	if (m.size[0] != size[0] || m.size[1] != m.size[1]) {
 		std::cout << "ERROR +" << std::endl;
 		return *this;
 	}
-	Matrix res(m.size[0], m.size[1]);
+	Matrix result(m.size[0], m.size[1]);
 	for (int i = 0; i < m.size[0]; i++) {
-		res[i] = data[i] + m.data[i];
+		result[i] = data[i] + m.data[i];
 	}
-	return res;
+	return result;
+}
+Matrix Matrix::operator-(const Matrix& m) const {
+	if (m.size[0] != size[0] || m.size[1] != m.size[1]) {
+		std::cout << "ERROR -" << std::endl;
+		return *this;
+	}
+	Matrix result(m.size[0], m.size[1]);
+	for (int i = 0; i < m.size[0]; i++) {
+		result[i] = data[i] - m.data[i];
+	}
+	return result;
+}
+
+Matrix Matrix::operator-() const {
+	Matrix result(size[0], size[1]);
+	for (int i = 0; i < size[0]; i++) {
+		result[i] = data[i] * (-1);
+	}
+	return result;
 }
 
 
@@ -79,6 +134,11 @@ Vector Matrix::operator[](int i) const {
 	return this->data[i];
 }
 
+void Matrix::randomFill() {
+	for (int i = 0; i < size[0]; i++)
+		data[i].randomfill();
+
+}
 
 
 std::ostream& operator<<(std::ostream& out, const Matrix& m) {
