@@ -32,6 +32,7 @@ Matrix::~Matrix() {
 }
 
 Matrix& Matrix::operator=(const Matrix& m) {
+	if (this == &m) { return *this; }
 	size[0] = m.size[0]; size[1] = m.size[1];
 	delete[] data;
 	data = new Vector[size[0]];
